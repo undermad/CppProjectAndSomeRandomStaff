@@ -44,11 +44,11 @@ int main()
 	}
 
 	for (int i = 0; i < randomNumbers.size(); i++) {
-		std::cout << randomNumbers[i] << " ";
+		std::cout << randomNumbers[i] << ", ";
 	}
 	std::cout << std::endl;
 
-
+	
 
 	return 0;
 }
