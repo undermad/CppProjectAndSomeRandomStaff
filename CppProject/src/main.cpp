@@ -6,48 +6,80 @@
 #include <sstream>
 #include <random>
 
-int main()
-{
 
+void printMessage(std::string message, bool newLine = false) {
+	std::cout << message;
+	if(newLine) {
+		std::cout << std::endl;
+	}
+}
 
+void helloWorld() {
+	printMessage("Hello World of C++.");
+}
+
+std::vector<int> generateRandomNumbers(int amount) {
 	std::vector<int> randomNumbers;
-
 	std::srand(std::time(nullptr));
-
 
 	for (int i = 0; i < 12; i++) {
 		int number = std::rand() % 100;
 		randomNumbers.push_back(number);
-
-		std::cout << number << " " << std::endl;
 	}
 
-	int smallest = std::numeric_limits<int>::max();
-	for (int num : randomNumbers) {
-		if (num < smallest) {
-			smallest = num;
-		}
-	}
+	return randomNumbers;
+}
+
+void swap(std::vector<int>& vector, int firstIndex, int secondIndex) {
+	int temp = vector[firstIndex];
+	vector[firstIndex] = vector[secondIndex];
+	vector[secondIndex] = temp;
+}
 
 
-	// bubble sort
-	for (int i = 0; i < randomNumbers.size() - 1; i++) {
+void insertionSort(std::vector<int>& vector) {
+	for (int i = 0; i < vector.size() - 1; i++) {
 
-		for (int j = i + 1; j < randomNumbers.size(); j++) {
-			if (randomNumbers[i] < randomNumbers[j]) {
-				int temp = randomNumbers[i];
-				randomNumbers[i] = randomNumbers[j];
-				randomNumbers[j] = temp;
+		for (int j = i + 1; j < vector.size(); j++) {
+			if (vector[i] < vector[j]) {
+				swap(vector, i, j);
 			}
 		}
 
 	}
+}
 
-	for (int i = 0; i < randomNumbers.size(); i++) {
-		std::cout << randomNumbers[i] << ", ";
+int findSmallestNumber(std::vector<int> vector) {
+	int smallest = std::numeric_limits<int>::max();
+	for (int num : vector) {
+		if (num < smallest) {
+			smallest = num;
+		}
+	}
+	return smallest;
+}
+
+void printVector(std::vector<int> vector) {
+	for (int i = 0; i < vector.size(); i++) {
+		std::cout << vector[i] << " ";
 	}
 	std::cout << std::endl;
+}
 
+
+
+
+int main()
+{
+	std::vector<int> randomNumbers = generateRandomNumbers(12);
+
+	insertionSort(randomNumbers);
+	std::cout << findSmallestNumber(randomNumbers) << std::endl;
+
+	printVector(randomNumbers);
+
+	helloWorld();
+	printMessage("Hello Cpp. I always wanted to meet you. To day is the day!", true);
 	
 
 	return 0;
